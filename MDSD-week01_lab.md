@@ -1505,23 +1505,179 @@ class _AiChatPageState extends State<AiChatPage> {
 }
 ```
 
-อัปเดต `lib/main.dart` ให้นำทางไปหน้า AI Chat:
+อัปเดต lib/main.dart ให้นำทางไปหน้า AI Chat โดยแก้ไข 2 จุด:
+
+จุดที่ 1 — เพิ่ม import ที่หัวไฟล์ บรรทัดแรกๆ ของ main.dart มี import อยู่แล้ว ให้เพิ่มบรรทัดนี้ต่อท้าย import เดิม:
+```dart
+import 'package:flutter/material.dart';
+import 'pages/ai_chat_page.dart';   // ← เพิ่มบรรทัดนี้
+```
+จุดที่ 2 — เพิ่มปุ่มใน ProfilePage ภายใน Column ของ ProfilePage ให้เพิ่มปุ่มต่อท้าย Card widget ที่มีอยู่แล้ว:
+```dart
+// โครงสร้างของ ProfilePage ที่มีอยู่แล้ว
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(...),
+    body: SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+
+          // --- ส่วนที่มีอยู่แล้ว ---
+          const SizedBox(height: 20),
+          const CircleAvatar(...),
+          const SizedBox(height: 16),
+          const Text('ชื่อ นามสกุล', ...),
+          const SizedBox(height: 8),
+          const Text('รหัสนักศึกษา: ...', ...),
+          const SizedBox(height: 24),
+          Card(...),   // Card ข้อมูล
+
+          // ↓↓↓ เพิ่ม 2 บรรทัดนี้ต่อจาก Card ↓↓↓
+          const SizedBox(height: 24),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AiChatPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.smart_toy),
+            label: const Text('ทดลอง AI Chat'),
+          ),
+          // ↑↑↑ จบส่วนที่เพิ่ม ↑↑↑
+
+        ],
+      ),
+    ),
+  );
+}
+```
+
+💡 ตำแหน่งที่เพิ่ม คือภายใน children: [...] ของ Column หลัง Card(...) ที่แสดงข้อมูลโปรไฟล์ ระวังวงเล็บ — ต้องอยู่ก่อน ], ที่ปิด children
+
+
+
+ตัวอย่าง main.dart ที่สมบูรณ์หลังเพิ่มแล้ว ส่วนที่เพิ่มใหม่จะมี Comment กำกับ:
 
 ```dart
-// เพิ่มใน ProfilePage หรือสร้าง Navigation
-// ตัวอย่าง: เพิ่มปุ่มนำทางไปหน้า AI Chat
+import 'package:flutter/material.dart';
+import 'pages/ai_chat_page.dart'; // ← เพิ่ม import นี้
 
-ElevatedButton.icon(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AiChatPage()),
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'My Profile',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        useMaterial3: true,
+      ),
+      home: const ProfilePage(),
     );
-  },
-  icon: const Icon(Icons.smart_toy),
-  label: const Text('ทดลอง AI Chat'),
-),
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            const CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.teal,
+              child: Icon(Icons.person, size: 60, color: Colors.white),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'ชื่อ นามสกุล',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text('รหัสนักศึกษา: XXXXXXXX'),
+            const SizedBox(height: 24),
+            Card(
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    _buildInfoRow(Icons.school, 'คณะ', 'วิทยาศาสตร์และเทคโนโลยี'),
+                    const Divider(),
+                    _buildInfoRow(Icons.code, 'วิชาที่ชอบ', 'Mobile Development'),
+                  ],
+                ),
+              ),
+            ),
+
+            // ↓ เพิ่มส่วนนี้ ↓
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AiChatPage(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.smart_toy),
+              label: const Text('ทดลอง AI Chat'),
+            ),
+            // ↑ จบส่วนที่เพิ่ม ↑
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.teal),
+          const SizedBox(width: 12),
+          Text('$label: ', style: const TextStyle(fontWeight: FontWeight.bold)),
+          Expanded(child: Text(value)),
+        ],
+      ),
+    );
+  }
+}
 ```
+
+⚠️ ถ้าได้ Error ว่า AiChatPage ไม่รู้จัก ให้ตรวจสอบว่า:
+
+
+ไฟล์ lib/pages/ai_chat_page.dart มีอยู่จริง
+บรรทัด import 'pages/ai_chat_page.dart'; อยู่ที่หัวไฟล์ main.dart แล้ว
+
+
+
+ขั้นตอนที่ 6: รันและทดสอบ AI Chat
 
 ---
 

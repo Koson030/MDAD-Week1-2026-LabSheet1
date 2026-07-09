@@ -1724,7 +1724,22 @@ flutter run
 flutter doctor output:
 ┌─────────────────────────────────────────────────────────┐
 │                                                         │
-│  <img width="602" height="333" alt="image" src="https://github.com/user-attachments/assets/dac72be1-dd27-4a12-9864-a3e03d214636" />
+│ Doctor summary (to see all details, run flutter doctor -v):
+[√] Flutter (Channel stable, 3.44.5, on Microsoft Windows [Version
+    10.0.26200.8655], locale en-US)
+[√] Windows Version (Windows 11 or higher, 25H2, 2009)
+[!] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+    X Flutter requires Android SDK 36 and the Android BuildTools 28.0.3
+      To update the Android SDK visit https://flutter.dev/to/windows-android-setup
+      for detailed instructions.
+[√] Chrome - develop for the web
+[X] Visual Studio - develop Windows apps
+    X Visual Studio not installed; this is necessary to develop Windows apps.
+      Download at https://visualstudio.microsoft.com/downloads/.
+      Please install the "Desktop development with C++" workload, including all of
+      its default components
+[√] Connected device (3 available)
+[√] Network resources
                 │
 │                                                         │
 └─────────────────────────────────────────────────────────┘

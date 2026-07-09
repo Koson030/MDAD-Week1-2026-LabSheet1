@@ -1750,11 +1750,8 @@ Android SDK Version: 34.0.0
 ```
 
 ### 3.2 Screenshot ของ Flutter App
-
-```
 <img width="1915" height="1021" alt="image" src="https://github.com/user-attachments/assets/b099faef-e934-4d7c-a0b1-1939f9c7bc2d" />
 
-```
 
 **Widget Tree ที่วาด:**
 
@@ -1762,9 +1759,34 @@ Android SDK Version: 34.0.0
 (วาด Widget Tree ของแอปที่สร้างด้วยมือ)
 
 MaterialApp
-└── ?
-    └── ?
-        └── ...
+MaterialApp
+ └── ProfilePage
+      └── Scaffold
+           ├── AppBar
+           │    └── Text ('โปรไฟล์ของฉัน')
+           └── Padding
+                └── SingleChildScrollView
+                     └── Column
+                          ├── SizedBox
+                          ├── CircleAvatar
+                          │    └── Icon (Icons.person)
+                          ├── SizedBox
+                          ├── Text ('นายโกศล เพ็งพิพัฒน์')
+                          ├── SizedBox
+                          ├── Text ('รหัสนักศึกษา: 67030030')
+                          ├── SizedBox
+                          └── Card
+                               └── Padding
+                                    └── Column (แถวข้อมูลทั้งหมด)
+                                         ├── _buildInfoRow (คณะ)
+                                         ├── Divider
+                                         ├── _buildInfoRow (วิชาที่ชอบ)
+                                         ├── Divider
+                                         ├── _buildInfoRow (เป้าหมาย)
+                                         ├── Divider
+                                         ├── _buildInfoRow (เบอร์โทรศัพท์)
+                                         ├── Divider
+                                         └── _buildInfoRow (อีเมล)
 ```
 
 ### 3.3 การเปรียบเทียบ Hot Reload vs Hot Restart

@@ -1750,7 +1750,8 @@ Android SDK Version: 34.0.0
 ```
 
 ### 3.2 Screenshot ของ Flutter App
-<img width="1915" height="1021" alt="image" src="https://github.com/user-attachments/assets/b099faef-e934-4d7c-a0b1-1939f9c7bc2d" />
+<img width="1914" height="1014" alt="image" src="https://github.com/user-attachments/assets/8d1072ff-4d61-4b6c-9275-2b927fbd095d" />
+
 
 
 **Widget Tree ที่วาด:**
@@ -1759,15 +1760,14 @@ Android SDK Version: 34.0.0
 (วาด Widget Tree ของแอปที่สร้างด้วยมือ)
 
 MaterialApp
-MaterialApp
  └── ProfilePage
       └── Scaffold
            ├── AppBar
            │    └── Text ('โปรไฟล์ของฉัน')
            └── Padding
                 └── SingleChildScrollView
-                     └── Column
-                          ├── SizedBox
+                     └── Column (ตัวควบคุมแนวตั้งทั้งหมด)
+                          ├── SizedBox (เว้นระยะบน)
                           ├── CircleAvatar
                           │    └── Icon (Icons.person)
                           ├── SizedBox
@@ -1775,18 +1775,30 @@ MaterialApp
                           ├── SizedBox
                           ├── Text ('รหัสนักศึกษา: 67030030')
                           ├── SizedBox
-                          └── Card
-                               └── Padding
-                                    └── Column (แถวข้อมูลทั้งหมด)
-                                         ├── _buildInfoRow (คณะ)
-                                         ├── Divider
-                                         ├── _buildInfoRow (วิชาที่ชอบ)
-                                         ├── Divider
-                                         ├── _buildInfoRow (เป้าหมาย)
-                                         ├── Divider
-                                         ├── _buildInfoRow (เบอร์โทรศัพท์)
-                                         ├── Divider
-                                         └── _buildInfoRow (อีเมล)
+                          ├── AnimatedContainer (ตัวการ์ดโปรไฟล์)
+                          │    └── Column
+                          │         ├── _buildInfoRow (คณะ)
+                          │         ├── Divider
+                          │         ├── _buildInfoRow (วิชาที่ชอบ)
+                          │         ├── Divider
+                          │         ├── _buildInfoRow (เป้าหมาย)
+                          │         ├── Divider
+                          │         ├── _buildInfoRow (เบอร์โทรศัพท์)
+                          │         ├── Divider
+                          │         ├── _buildInfoRow (อีเมล)
+                          │         ├── Divider
+                          │         ├── SizedBox
+                          │         ├── Text ('ช่องทางการติดต่อเพิ่มเติม')
+                          │         ├── SizedBox
+                          │         └── Row (แถวปุ่มโซเชียล)
+                          │              ├── IconButton (Facebook)
+                          │              └── IconButton (Instagram)
+                          │
+                          ├── SizedBox (เว้นระยะก่อนถึงปุ่ม AI)
+                          │
+                          └── ElevatedButton.icon (ปุ่มทดลอง AI Chat ที่เพิ่มเข้ามาใหม่)
+                               ├── Icon (Icons.smart_toy)
+                               └── Text ('ทดลอง AI Chat')
 ```
 
 ### 3.3 การเปรียบเทียบ Hot Reload vs Hot Restart
